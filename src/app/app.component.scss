@@ -1,6 +1,10 @@
 .demo-container {
-  display: grid;
-  grid: auto-flow 180px / 1fr 1fr;
+  display: flex;
+  // display: grid;
+  // grid: auto-flow 180px / 1fr 1fr;
+  router-outlet {
+    display: contents;
+  }
   > * {
     border: 1px solid salmon;
     padding: 1rem;
