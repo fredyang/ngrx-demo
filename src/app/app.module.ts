@@ -24,6 +24,10 @@ import { salesStoreModules } from './sales-store/sales.reducers-selectors-module
 import { SalesCmpStoreComponent } from './sales-cmp-store/sales-cmp-store.component';
 import { BehaviorSubjectCounterWithBugComponent } from './behavior-subject-counter-with-bug/behavior-subject-counter-with-bug.component';
 import { BehaviorSubjectCounterWithBugDemoComponent } from './behavior-subject-counter-with-bug/behavior-subject-counter-demo.component';
+import { AntiPattern1Component } from './ngrx-anti-pattern1/anti-pattern1.component';
+import { antiPatternModule1 } from './ngrx-anti-pattern1/store';
+import { AntiPattern1FixComponent } from './ngrx-anti-pattern1/anti-pattern1-fix.component';
+import { ReactiveFormsModule } from '@angular/forms';
 @NgModule({
   declarations: [
     AppComponent,
@@ -42,13 +46,17 @@ import { BehaviorSubjectCounterWithBugDemoComponent } from './behavior-subject-c
     BetterStoreCounterDemoComponent,
     SalesStoreComponent,
     SalesCmpStoreComponent,
+    AntiPattern1Component,
+    AntiPattern1FixComponent,
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
+    ReactiveFormsModule,
     counterStoreModules,
     betterCounterStoreModules,
     salesStoreModules,
+    antiPatternModule1,
     StoreModule.forRoot({}, {}),
     EffectsModule.forRoot([]),
     StoreDevtoolsModule.instrument({

@@ -16,6 +16,16 @@ import { ChangeDetectionStrategy, Component } from '@angular/core';
       <li><a routerLink="better-store">better store counter</a></li>
       <li><a routerLink="sales">Store Sales</a></li>
       <li><a routerLink="sales-cmp-store">Component-store Sales</a></li>
+      <li>
+        <a routerLink="antipattern1"
+          >Anti-pattern: use store to hold temporary value</a
+        >
+      </li>
+      <li>
+        <a routerLink="antipattern1-fix"
+          >fix Anti-pattern: use store to hold temporary value
+        </a>
+      </li>
     </ul>
   `,
   styles: [],

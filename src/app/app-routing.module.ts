@@ -10,6 +10,8 @@ import { BetterStoreCounterDemoComponent } from './better-store-counter/better-s
 import { SalesStoreComponent } from './sales-store/sales-store.component';
 import { SalesCmpStoreComponent } from './sales-cmp-store/sales-cmp-store.component';
 import { BehaviorSubjectCounterWithBugDemoComponent } from './behavior-subject-counter-with-bug/behavior-subject-counter-demo.component';
+import { AntiPattern1Component } from './ngrx-anti-pattern1/anti-pattern1.component';
+import { AntiPattern1FixComponent } from './ngrx-anti-pattern1/anti-pattern1-fix.component';
 
 const routes: Routes = [
   {
@@ -47,6 +49,14 @@ const routes: Routes = [
   {
     path: 'sales-cmp-store',
     component: SalesCmpStoreComponent,
+  },
+  {
+    path: 'antipattern1',
+    component: AntiPattern1Component,
+  },
+  {
+    path: 'antipattern1-fix',
+    component: AntiPattern1FixComponent,
   },
 ];
 
