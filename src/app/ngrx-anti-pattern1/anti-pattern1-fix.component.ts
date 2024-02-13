@@ -17,7 +17,9 @@ import { FormControl } from '@angular/forms';
 })
 export class AntiPattern1FixComponent {
   constructor(private api: XApi) {}
+
   txtToken = new FormControl();
+
   isValid$ = this.txtToken.valueChanges.pipe(
     switchMap((value) => this.api.validate(value))
   );

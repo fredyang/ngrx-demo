@@ -1,8 +1,4 @@
-import {
-  ChangeDetectionStrategy,
-  ChangeDetectorRef,
-  Component,
-} from '@angular/core';
+import { ChangeDetectionStrategy, Component } from '@angular/core';
 import { Debug } from '../debug';
 import { BehaviorCounterService } from '../behavior-subject-counter/behavior-subject-counter-service';
 
@@ -19,14 +15,10 @@ import { BehaviorCounterService } from '../behavior-subject-counter/behavior-sub
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class BehaviorSubjectCounterWithBugComponent extends Debug {
-  constructor(
-    private rxjsService: BehaviorCounterService,
-    changeDetector: ChangeDetectorRef
-  ) {
+  constructor(private rxjsService: BehaviorCounterService) {
     super();
     this.rxjsService.result$.subscribe((result) => {
       this.result = result;
-      changeDetector.markForCheck();
     });
   }
 

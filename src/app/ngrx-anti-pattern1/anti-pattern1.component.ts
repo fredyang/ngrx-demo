@@ -1,7 +1,8 @@
-import { ChangeDetectionStrategy, Component } from '@angular/core';
+import { ChangeDetectionStrategy, Component, OnDestroy } from '@angular/core';
 import { Store } from '@ngrx/store';
 import { antiPatternActions, antiPatternFeature1 } from './store';
 import { FormControl } from '@angular/forms';
+import { Subject, takeUntil } from 'rxjs';
 
 @Component({
   selector: 'app-anti-pattern1',
@@ -16,18 +17,32 @@ import { FormControl } from '@angular/forms';
   styles: [],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class AntiPattern1Component {
-  constructor(private store: Store) {
-    this.txtToken.valueChanges.subscribe((token) => {
-      this.store.dispatch(antiPatternActions.tokenUpdated({ token }));
-    });
+export class AntiPattern1Component implements OnDestroy {
+  private destroy$ = new Subject<void>();
 
-    this.store.select(antiPatternFeature1.selectToken).subscribe((token) => {
-      this.store.dispatch(antiPatternActions.validate({ token }));
-    });
+  constructor(private store: Store) {
+    // when input change, save it to token slot in store
+    this.txtToken.valueChanges
+      .pipe(takeUntil(this.destroy$))
+      .subscribe((token) => {
+        this.store.dispatch(antiPatternActions.tokenUpdated({ token }));
+      });
+
+    // when token slot change, trigger to side effect to validate it
+    this.store
+      .select(antiPatternFeature1.selectToken)
+      .pipe(takeUntil(this.destroy$))
+      .subscribe((token) => {
+        this.store.dispatch(antiPatternActions.validate({ token }));
+      });
+  }
+  ngOnDestroy(): void {
+    this.destroy$.next();
+    this.destroy$.complete();
   }
 
   txtToken = new FormControl();
 
+  // subscribe isValid slot in store
   isValid$ = this.store.select(antiPatternFeature1.selectIsValid);
 }
