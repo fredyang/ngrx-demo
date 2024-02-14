@@ -8,7 +8,7 @@ import { Subject, takeUntil } from 'rxjs';
   selector: 'app-anti-pattern1',
   template: `
     <div>
-      <h1>anti pattern: use store for temporary value</h1>
+      <h1>anti pattern: use store for temporary variable</h1>
       <p>token: <input [formControl]="txtToken" /> (valid value is 'super')</p>
 
       <p>isValid: {{ isValid$ | async }}</p>

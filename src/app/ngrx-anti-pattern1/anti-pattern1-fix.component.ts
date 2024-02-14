@@ -7,7 +7,7 @@ import { FormControl } from '@angular/forms';
   selector: 'app-anti-pattern1-fix',
   template: `
     <div>
-      <h1>fix for anti pattern: use store for temporary value</h1>
+      <h1>fix for anti pattern: use store for temporary variable</h1>
       <p>token: <input [formControl]="txtToken" /> (valid value is 'super')</p>
       <p>isValid: {{ isValid$ | async }}</p>
     </div>
