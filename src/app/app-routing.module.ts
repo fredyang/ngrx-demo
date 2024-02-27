@@ -12,6 +12,7 @@ import { SalesCmpStoreComponent } from './sales-cmp-store/sales-cmp-store.compon
 import { BehaviorSubjectCounterWithBugDemoComponent } from './behavior-subject-counter-with-bug/behavior-subject-counter-demo.component';
 import { AntiPattern1Component } from './ngrx-anti-pattern1/anti-pattern1.component';
 import { AntiPattern1FixComponent } from './ngrx-anti-pattern1/anti-pattern1-fix.component';
+import { RootComponent } from './service-scope/root.component';
 
 const routes: Routes = [
   {
@@ -57,6 +58,17 @@ const routes: Routes = [
   {
     path: 'antipattern1-fix',
     component: AntiPattern1FixComponent,
+  },
+  {
+    path: 'root-service',
+    component: RootComponent,
+    children: [
+      {
+        path: 'feature',
+        loadChildren: () =>
+          import('./service-scope/feature.module').then((m) => m.FeatureModule),
+      },
+    ],
   },
 ];
 

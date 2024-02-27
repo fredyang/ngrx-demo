@@ -28,6 +28,9 @@ import { AntiPattern1Component } from './ngrx-anti-pattern1/anti-pattern1.compon
 import { antiPatternModule1 } from './ngrx-anti-pattern1/store';
 import { AntiPattern1FixComponent } from './ngrx-anti-pattern1/anti-pattern1-fix.component';
 import { ReactiveFormsModule } from '@angular/forms';
+import { RootComponent } from './service-scope/root.component';
+import { DoubletonService } from './service-scope/doubleton.service';
+import { SingletonService } from './service-scope/singleton.service';
 @NgModule({
   declarations: [
     AppComponent,
@@ -48,6 +51,7 @@ import { ReactiveFormsModule } from '@angular/forms';
     SalesCmpStoreComponent,
     AntiPattern1Component,
     AntiPattern1FixComponent,
+    RootComponent,
   ],
   imports: [
     BrowserModule,
@@ -65,7 +69,7 @@ import { ReactiveFormsModule } from '@angular/forms';
     }),
     StoreDevtoolsModule.instrument({ maxAge: 25, logOnly: !isDevMode() }),
   ],
-  providers: [],
+  providers: [SingletonService, DoubletonService],
   bootstrap: [AppComponent],
 })
 export class AppModule {}

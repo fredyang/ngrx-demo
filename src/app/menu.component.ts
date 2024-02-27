@@ -26,6 +26,9 @@ import { ChangeDetectionStrategy, Component } from '@angular/core';
           >fix Anti-pattern: use store to hold temporary value
         </a>
       </li>
+      <li>
+        <a routerLink="root-service">Root component</a>
+      </li>
     </ul>
   `,
   styles: [],
