@@ -1,6 +1,6 @@
 import { StoreModule, createFeature, createReducer, on } from '@ngrx/store';
 import { SalesState } from '../sales-share/model';
-import { apiEvents, homePageEvents, systemEvents } from './sales.actions';
+import { apiEvents, homePageEvents, sessionEvents } from './sales.actions';
 import { EffectsModule } from '@ngrx/effects';
 import { ApiEffects } from './api.effects';
 import { SessionEffects } from './session.effects';
@@ -11,25 +11,24 @@ import { SessionEffects } from './session.effects';
 // with the following
 
 const initialState = {
-  sessionValidSince: null,
+  sessionRenewAt: null,
 } as SalesState;
 
-const salesFeature = createFeature({
+const salesStore = createFeature({
   name: 'sales',
   reducer: createReducer(
     initialState,
     //one action trigger two reducers
-    on(apiEvents.loginSuccess, function updateUser(state, user) {
-      return { ...state, user };
-    }),
-    //one reducer respond to two actions
+    //
     on(
       apiEvents.loginSuccess,
-      systemEvents.sessionRenewed,
-      function renewSession(state) {
-        return { ...state, sessionValidSince: new Date() };
-      }
+      /* update user */ (state, user) => ({ ...state, user })
     ),
+    //one reducer respond to two actions
+    on(apiEvents.loginSuccess, sessionEvents.renewed, (state) => ({
+      ...state,
+      sessionRenewAt: new Date(),
+    })),
     //
     on(apiEvents.orderLoaded, function setOrders(state, { orders }) {
       return { ...state, orders };
@@ -41,22 +40,18 @@ const salesFeature = createFeature({
       }
     ),
     //one reducer respond to two actions
-    on(
-      homePageEvents.logOut,
-      systemEvents.sessionTimeout,
-      function clearSalesData() {
-        return {} as SalesState;
-      }
-    )
+    on(homePageEvents.logOut, sessionEvents.timeout, function clearSalesData() {
+      return {} as SalesState;
+    })
   ),
 });
 
-export const salesSelectors = salesFeature as Omit<
-  typeof salesFeature,
+export const salesSelectors = salesStore as Omit<
+  typeof salesStore,
   'name' | 'reducer'
 >;
 
 export const salesStoreModules = [
-  StoreModule.forFeature(salesFeature),
+  StoreModule.forFeature(salesStore),
   EffectsModule.forFeature(ApiEffects, SessionEffects),
 ];

@@ -10,7 +10,7 @@ import {
   tap,
   timer,
 } from 'rxjs';
-import { homePageEvents, apiEvents, systemEvents } from './sales.actions';
+import { homePageEvents, apiEvents, sessionEvents } from './sales.actions';
 import { Store } from '@ngrx/store';
 
 export const expiredInSeconds = 10;
@@ -27,13 +27,14 @@ export class SessionEffects {
       ofType(apiEvents.loginSuccess, homePageEvents.logOut),
       // switchMap can cancel if user logout manually
       switchMap((event) => {
+        console.log('event type', event.type);
         return event.type === apiEvents.loginSuccess.type
           ? fromEvent(document, 'mousemove').pipe(
               debounceTime(300),
               tap(() => {
                 // normally an effect should only return one action
                 // this is hack
-                this.store.dispatch(systemEvents.sessionRenewed());
+                this.store.dispatch(sessionEvents.renewed());
               }),
               // start tracking at the first time without waiting mouse move
               startWith(true),
@@ -43,7 +44,7 @@ export class SessionEffects {
           : // in case user log out, stop tracking
             EMPTY;
       }),
-      map(() => systemEvents.sessionTimeout())
+      map(() => sessionEvents.timeout())
     )
   );
 }

@@ -2,7 +2,7 @@ import { createActionGroup, emptyProps, props } from '@ngrx/store';
 import { UserInfo } from '../sales-share/model';
 
 export const homePageEvents = createActionGroup({
-  source: 'Sales Home Page',
+  source: 'HomePage',
   events: {
     'log in': props<{ userName: string; password: string }>(),
     'log out': emptyProps(),
@@ -18,10 +18,10 @@ export const apiEvents = createActionGroup({
   },
 });
 
-export const systemEvents = createActionGroup({
-  source: 'System',
+export const sessionEvents = createActionGroup({
+  source: 'Session',
   events: {
-    'session timeout': emptyProps(),
-    'session renewed': emptyProps(),
+    timeout: emptyProps(),
+    renewed: emptyProps(),
   },
 });

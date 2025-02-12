@@ -18,7 +18,7 @@ import { concatLatestFrom } from '@ngrx/effects';
         <h2>Hello, {{ sales.user.firstName }} {{ sales.user.lastName }}</h2>
         <p>
           Session is valid from
-          <strong>{{ sales.sessionValidSince | date : 'h:mm:ss a' }}</strong
+          <strong>{{ sales.sessionRenewAt | date : 'h:mm:ss a' }}</strong
           >. It will be auto logged out in
           <strong>{{ remainingTime$ | async }}</strong> seconds. Move your mouse
           to renew your session.
@@ -56,11 +56,11 @@ export class SalesStoreComponent {
 
   remainingTime$ = interval(300).pipe(
     concatLatestFrom(() =>
-      this.store.select(salesSelectors.selectSessionValidSince)
+      this.store.select(salesSelectors.selectSessionRenewAt)
     ),
-    map(([, sessionValidSince]) =>
+    map(([, sessionRenewAt]) =>
       Math.ceil(
-        (sessionValidSince!.getTime() +
+        (sessionRenewAt!.getTime() +
           expiredInSeconds * 1000 -
           new Date().getTime()) /
           1000
