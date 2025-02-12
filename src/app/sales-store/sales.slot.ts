@@ -14,7 +14,8 @@ const initialState = {
   sessionRenewAt: null,
 } as SalesState;
 
-const salesStore = createFeature({
+// slot(feature) is bound to recucers
+const salesSlot = createFeature({
   name: 'sales',
   reducer: createReducer(
     initialState,
@@ -46,12 +47,12 @@ const salesStore = createFeature({
   ),
 });
 
-export const salesSelectors = salesStore as Omit<
-  typeof salesStore,
+export const salesSelectors = salesSlot as Omit<
+  typeof salesSlot,
   'name' | 'reducer'
 >;
 
 export const salesStoreModules = [
-  StoreModule.forFeature(salesStore),
+  StoreModule.forFeature(salesSlot),
   EffectsModule.forFeature(ApiEffects, SessionEffects),
 ];

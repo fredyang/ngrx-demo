@@ -1,6 +1,6 @@
 import { ChangeDetectionStrategy, Component, OnDestroy } from '@angular/core';
 import { Store } from '@ngrx/store';
-import { salesSelectors } from './sales.reducers-selectors-modules';
+import { salesSelectors } from './sales.slot';
 import { homePageEvents } from './sales.actions';
 import { interval, map } from 'rxjs';
 import { expiredInSeconds } from './session.effects';
