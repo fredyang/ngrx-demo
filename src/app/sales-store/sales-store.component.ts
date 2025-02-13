@@ -1,9 +1,9 @@
-import { ChangeDetectionStrategy, Component, OnDestroy } from '@angular/core';
+import { ChangeDetectionStrategy, Component } from '@angular/core';
 import { Store } from '@ngrx/store';
-import { salesSelectors } from './sales.slot';
+import { salesSelectors } from './sales.selector';
 import { homePageEvents } from './sales.actions';
 import { interval, map } from 'rxjs';
-import { expiredInSeconds } from './session.effects';
+import { expiredInSeconds } from './sales.session.effects';
 import { concatLatestFrom } from '@ngrx/effects';
 
 @Component({

@@ -20,7 +20,6 @@ import { betterCounterStoreModules } from './better-store-counter/better-counter
 import { BetterStoreCounterComponent } from './better-store-counter/better-store-counter.component';
 import { BetterStoreCounterDemoComponent } from './better-store-counter/better-store-counter-demo.component';
 import { SalesStoreComponent } from './sales-store/sales-store.component';
-import { salesStoreModules } from './sales-store/sales.slot';
 import { SalesCmpStoreComponent } from './sales-cmp-store/sales-cmp-store.component';
 import { BehaviorSubjectCounterWithBugComponent } from './behavior-subject-counter-with-bug/behavior-subject-counter-with-bug.component';
 import { BehaviorSubjectCounterWithBugDemoComponent } from './behavior-subject-counter-with-bug/behavior-subject-counter-demo.component';
@@ -31,6 +30,7 @@ import { ReactiveFormsModule } from '@angular/forms';
 import { RootComponent } from './service-scope/root.component';
 import { DoubletonService } from './service-scope/doubleton.service';
 import { SingletonService } from './service-scope/singleton.service';
+import { salesStoreModules } from './sales-store/sales.store.module';
 @NgModule({
   declarations: [
     AppComponent,

@@ -2,8 +2,8 @@ import { StoreModule, createFeature, createReducer, on } from '@ngrx/store';
 import { SalesState } from '../sales-share/model';
 import { apiEvents, homePageEvents, sessionEvents } from './sales.actions';
 import { EffectsModule } from '@ngrx/effects';
-import { ApiEffects } from './api.effects';
-import { SessionEffects } from './session.effects';
+import { ApiEffects } from './sales.api.effects';
+import { SessionEffects } from './sales.session.effects';
 
 // to fix an error
 // TypeError: Unexpected type 'undefined' in select operator,
@@ -15,7 +15,7 @@ const initialState = {
 } as SalesState;
 
 // slot(feature) is bound to recucers
-const salesSlot = createFeature({
+export const salesSlot = createFeature({
   name: 'sales',
   reducer: createReducer(
     initialState,
@@ -46,13 +46,3 @@ const salesSlot = createFeature({
     })
   ),
 });
-
-export const salesSelectors = salesSlot as Omit<
-  typeof salesSlot,
-  'name' | 'reducer'
->;
-
-export const salesStoreModules = [
-  StoreModule.forFeature(salesSlot),
-  EffectsModule.forFeature(ApiEffects, SessionEffects),
-];
