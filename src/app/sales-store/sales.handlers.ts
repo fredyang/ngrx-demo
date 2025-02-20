@@ -1,6 +1,11 @@
-import { StoreModule, createFeature, createReducer, on } from '@ngrx/store';
+import {
+  StoreModule,
+  createFeature,
+  createReducer as stateHandler,
+  on,
+} from '@ngrx/store';
 import { SalesState } from '../sales-share/model';
-import { apiEvents, homePageEvents, sessionEvents } from './sales.actions';
+import { apiEvents, homePageEvents, sessionEvents } from './sales.events';
 import { EffectsModule } from '@ngrx/effects';
 import { ApiEffects } from './sales.api.effects';
 import { SessionEffects } from './sales.session.effects';
@@ -17,7 +22,7 @@ const initialState = {
 // slot(feature) is bound to recucers
 export const salesSlot = createFeature({
   name: 'sales',
-  reducer: createReducer(
+  reducer: stateHandler(
     initialState,
     //one action trigger two reducers
     //

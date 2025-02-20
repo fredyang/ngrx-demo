@@ -1,7 +1,7 @@
 import { EffectsModule } from '@ngrx/effects';
 import { StoreModule } from '@ngrx/store';
 import { ApiEffects } from './sales.api.effects';
-import { salesSlot } from './sales.reducers';
+import { salesSlot } from './sales.handlers';
 import { SessionEffects } from './sales.session.effects';
 
 export const salesStoreModules = [

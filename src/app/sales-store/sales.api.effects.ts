@@ -1,17 +1,17 @@
 import { Injectable } from '@angular/core';
-import { Actions, createEffect, ofType } from '@ngrx/effects';
+import { Actions as Events, createEffect, ofType } from '@ngrx/effects';
 import { concatMap, map } from 'rxjs';
-import { homePageEvents, apiEvents } from './sales.actions';
+import { homePageEvents, apiEvents } from './sales.events';
 import { ApiService } from '../sales-share/api.service';
 
 @Injectable({
   providedIn: 'root',
 })
 export class ApiEffects {
-  constructor(private actions$: Actions, private apiService: ApiService) {}
+  constructor(private events$: Events, private apiService: ApiService) {}
 
   login$ = createEffect(() =>
-    this.actions$.pipe(
+    this.events$.pipe(
       ofType(homePageEvents.logIn),
       concatMap(({ userName, password }) =>
         this.apiService
@@ -22,7 +22,7 @@ export class ApiEffects {
   );
 
   getUserOrders$ = createEffect(() =>
-    this.actions$.pipe(
+    this.events$.pipe(
       ofType(apiEvents.loginSuccess),
       concatMap(({ userName }) =>
         this.apiService
@@ -33,7 +33,7 @@ export class ApiEffects {
   );
 
   getPreferences$ = createEffect(() =>
-    this.actions$.pipe(
+    this.events$.pipe(
       ofType(apiEvents.loginSuccess),
       concatMap(({ userName }) =>
         this.apiService

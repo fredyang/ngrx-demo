@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { Actions, createEffect, ofType } from '@ngrx/effects';
+import { Actions as Events, createEffect, ofType } from '@ngrx/effects';
 import {
   EMPTY,
   debounceTime,
@@ -10,7 +10,7 @@ import {
   tap,
   timer,
 } from 'rxjs';
-import { homePageEvents, apiEvents, sessionEvents } from './sales.actions';
+import { homePageEvents, apiEvents, sessionEvents } from './sales.events';
 import { Store } from '@ngrx/store';
 
 export const expiredInSeconds = 10;
@@ -19,10 +19,10 @@ export const expiredInSeconds = 10;
   providedIn: 'root',
 })
 export class SessionEffects {
-  constructor(private actions$: Actions, private store: Store) {}
+  constructor(private events$: Events, private store: Store) {}
 
   trackSession$ = createEffect(() =>
-    this.actions$.pipe(
+    this.events$.pipe(
       //the effect handle to events
       ofType(apiEvents.loginSuccess, homePageEvents.logOut),
       // switchMap can cancel if user logout manually

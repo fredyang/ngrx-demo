@@ -1,7 +1,7 @@
 import { ChangeDetectionStrategy, Component } from '@angular/core';
 import { Store } from '@ngrx/store';
 import { salesSelectors } from './sales.selector';
-import { homePageEvents } from './sales.actions';
+import { homePageEvents } from './sales.events';
 import { interval, map } from 'rxjs';
 import { expiredInSeconds } from './sales.session.effects';
 import { concatLatestFrom } from '@ngrx/effects';
