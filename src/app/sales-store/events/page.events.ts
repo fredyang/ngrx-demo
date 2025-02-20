@@ -3,7 +3,9 @@ import { createActionGroup, props, emptyProps } from '@ngrx/store';
 export const homePageEvents = createActionGroup({
   source: 'HomePage',
   events: {
-    'log in': props<{ userName: string; password: string }>(),
-    'log out': emptyProps(),
+    'want to login': props<{ userName: string; password: string }>(),
+    'want to logout': emptyProps(),
   },
 });
+
+// homePageEvents.wantToLogin({ userName: 'user', password: 'pass' });

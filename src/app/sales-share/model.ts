@@ -9,4 +9,5 @@ export interface SalesState {
   orders: string[];
   preferences: string[];
   sessionRenewAt: Date | null;
+  loginAt: Date | null;
 }

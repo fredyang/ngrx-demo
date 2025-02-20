@@ -40,8 +40,12 @@ export const salesSlot = createFeature({
       }
     ),
     //one reducer respond to two actions
-    on(homePageEvents.logOut, sessionEvents.timeout, function clearSalesData() {
-      return {} as SalesState;
-    })
+    on(
+      homePageEvents.wantToLogout,
+      sessionEvents.timeout,
+      function clearSalesData() {
+        return {} as SalesState;
+      }
+    )
   ),
 });
