@@ -30,7 +30,7 @@ import { ReactiveFormsModule } from '@angular/forms';
 import { RootComponent } from './service-scope/root.component';
 import { DoubletonService } from './service-scope/doubleton.service';
 import { SingletonService } from './service-scope/singleton.service';
-import { salesStoreModules } from './sales-store/sales.store.module';
+import { salesStoreModules } from './sales-store/sales.module';
 @NgModule({
   declarations: [
     AppComponent,

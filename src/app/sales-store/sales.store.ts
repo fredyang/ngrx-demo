@@ -1,14 +1,6 @@
-import {
-  StoreModule,
-  createFeature,
-  createReducer as stateHandler,
-  on,
-} from '@ngrx/store';
+import { createFeature, createReducer as stateHandler, on } from '@ngrx/store';
 import { SalesState } from '../sales-share/model';
 import { apiEvents, homePageEvents, sessionEvents } from './sales.events';
-import { EffectsModule } from '@ngrx/effects';
-import { ApiEffects } from './sales.api.effects';
-import { SessionEffects } from './sales.session.effects';
 
 // to fix an error
 // TypeError: Unexpected type 'undefined' in select operator,

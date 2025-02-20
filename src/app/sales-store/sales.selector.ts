@@ -1,4 +1,4 @@
-import { salesSlot } from './sales.handlers';
+import { salesSlot } from './sales.store';
 
 export const salesSelectors = salesSlot as Omit<
   typeof salesSlot,
