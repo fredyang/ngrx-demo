@@ -1,10 +1,10 @@
 import { ChangeDetectionStrategy, Component } from '@angular/core';
 import { Store } from '@ngrx/store';
-import { salesSelectors } from './sales.selector';
-import { homePageEvents } from './sales.events';
+import { salesSelectors } from './viewData/sales.selector';
 import { interval, map } from 'rxjs';
-import { expiredInSeconds } from './sales.session.effects';
 import { concatLatestFrom } from '@ngrx/effects';
+import { homePageEvents } from './events/page.events';
+import { expiredInSeconds } from './handlers/effects/session.effects';
 
 @Component({
   selector: 'app-sales-store',

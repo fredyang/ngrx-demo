@@ -1,6 +1,8 @@
-import { createFeature, createReducer as stateHandler, on } from '@ngrx/store';
-import { SalesState } from '../sales-share/model';
-import { apiEvents, homePageEvents, sessionEvents } from './sales.events';
+import { createFeature, createReducer, on } from '@ngrx/store';
+import { SalesState } from '../../../sales-share/model';
+import { apiEvents } from '../../events/api.events';
+import { homePageEvents } from '../../events/page.events';
+import { sessionEvents } from '../../events/session.events';
 
 // to fix an error
 // TypeError: Unexpected type 'undefined' in select operator,
@@ -14,7 +16,7 @@ const initialState = {
 // slot(feature) is bound to recucers
 export const salesSlot = createFeature({
   name: 'sales',
-  reducer: stateHandler(
+  reducer: createReducer(
     initialState,
     //one action trigger two reducers
     //

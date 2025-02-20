@@ -1,8 +1,9 @@
 import { Injectable } from '@angular/core';
 import { Actions as Events, createEffect, ofType } from '@ngrx/effects';
 import { concatMap, map } from 'rxjs';
-import { homePageEvents, apiEvents } from './sales.events';
-import { ApiService } from '../sales-share/api.service';
+import { ApiService } from '../../../sales-share/api.service';
+import { apiEvents } from '../../events/api.events';
+import { homePageEvents } from '../../events/page.events';
 
 @Injectable({
   providedIn: 'root',

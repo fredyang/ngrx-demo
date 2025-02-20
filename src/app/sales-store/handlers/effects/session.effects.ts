@@ -10,8 +10,10 @@ import {
   tap,
   timer,
 } from 'rxjs';
-import { homePageEvents, apiEvents, sessionEvents } from './sales.events';
 import { Store } from '@ngrx/store';
+import { homePageEvents } from '../../events/page.events';
+import { apiEvents } from '../../events/api.events';
+import { sessionEvents } from '../../events/session.events';
 
 export const expiredInSeconds = 10;
 
