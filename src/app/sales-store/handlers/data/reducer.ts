@@ -10,7 +10,10 @@ import { sessionEvents } from '../../events/session.events';
 // with the following
 
 const initialState = {
+  user: null,
   sessionRenewAt: null,
+  orders: null,
+  preferences: null,
 } as SalesState;
 
 // slot(feature) is bound to recucers

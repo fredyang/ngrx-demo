@@ -2,13 +2,12 @@ import { Injectable } from '@angular/core';
 import { Actions as Events, createEffect, ofType } from '@ngrx/effects';
 import {
   EMPTY,
+  concatMap,
   debounceTime,
   fromEvent,
   map,
-  startWith,
   switchMap,
   takeUntil,
-  tap,
   timer,
 } from 'rxjs';
 import { Store } from '@ngrx/store';
@@ -26,13 +25,11 @@ export class SessionEffects {
 
   trackSession$ = createEffect(() =>
     this.events$.pipe(
-      //the effect handle to events
       ofType(apiEvents.loginSuccess),
-      // switchMap can cancel if user logout manually
-      switchMap(() => {
+      concatMap(() => {
         return fromEvent(document, 'mousemove').pipe(
-          // if user logout or session expired, stop tracking mouse event
           takeUntil(
+            // if user logout or session expired, stop tracking mouse event
             this.events$.pipe(
               ofType(sessionEvents.expired, homePageEvents.logout)
             )
@@ -52,10 +49,10 @@ export class SessionEffects {
         apiEvents.loginSuccess,
         homePageEvents.logout
       ),
-      // use switchMap so that when it is renewed, the timer will be reset
+        // switchMap can reset the timer if new event comes in
       switchMap((event) => {
-        // if it is logout, stop emitting any value
-        // so that the session will not be expired
+        // if it is logout, stop emitting any value to avoid 
+        // emitting unnecessary session expired event
         if (event.type === homePageEvents.logout.type) {
           return EMPTY;
         } else {

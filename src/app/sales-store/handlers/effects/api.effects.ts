@@ -1,15 +1,21 @@
 import { Injectable } from '@angular/core';
-import { Actions as Events, createEffect, ofType } from '@ngrx/effects';
-import { concatMap, map } from 'rxjs';
+import { Actions, concatLatestFrom, createEffect, ofType } from '@ngrx/effects';
+import { concatMap, delay, filter, map, switchMap, tap } from 'rxjs';
 import { ApiService } from '../../../sales-share/api.service';
 import { apiEvents } from '../../events/api.events';
 import { homePageEvents } from '../../events/page.events';
+import { Store } from '@ngrx/store';
+import { salesSelectors } from '../../viewData/sales.selector';
 
 @Injectable({
   providedIn: 'root',
 })
 export class ApiEffects {
-  constructor(private events$: Events, private apiService: ApiService) {}
+  constructor(
+    private events$: Actions,
+    private apiService: ApiService,
+    private store: Store
+  ) {}
 
   login$ = createEffect(() =>
     this.events$.pipe(
@@ -21,6 +27,26 @@ export class ApiEffects {
       )
     )
   );
+
+  // another way to implement getUserOrders
+  // getUserOrders$ = createEffect(() =>
+  //   this.events$.pipe(
+  //     ofType(homePageEvents.login),
+  //     delay(10),
+  //     concatLatestFrom(() =>
+  //       this.store
+  //         .select(salesSelectors.selectUser)
+  //         .pipe(map((user) => user?.userName))
+  //     ),
+  //     map(([_, userName]) => userName),
+  //     filter((userName) => !!userName),
+  //     switchMap((userName) =>
+  //       this.apiService
+  //         .getUserOrders(userName!)
+  //         .pipe(map((orders) => apiEvents.orderLoaded({ orders })))
+  //     )
+  //   )
+  // );
 
   getUserOrders$ = createEffect(() =>
     this.events$.pipe(

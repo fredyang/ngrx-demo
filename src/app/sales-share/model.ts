@@ -6,8 +6,8 @@ export interface UserInfo {
 
 export interface SalesState {
   user: UserInfo | null;
-  orders: string[];
-  preferences: string[];
+  orders: string[] | null;
+  preferences: string[] | null;
   sessionRenewAt: Date | null;
   loginAt: Date | null;
 }
