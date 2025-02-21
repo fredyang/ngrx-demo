@@ -1,5 +1,5 @@
 import { createAction, props } from '@ngrx/store';
-import { UserInfo } from '../../sales-share/model';
+import { UserInfo } from '../../../sales-share/model';
 
 export const apiEvents = {
   loginSuccess: createAction('[Api] loginSuccess', props<UserInfo>()),

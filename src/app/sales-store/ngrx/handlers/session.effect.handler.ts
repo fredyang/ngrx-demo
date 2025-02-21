@@ -11,9 +11,9 @@ import {
   timer,
 } from 'rxjs';
 import { Store } from '@ngrx/store';
-import { homePageEvents } from '../../events/page.events';
-import { apiEvents } from '../../events/api.events';
-import { sessionEvents } from '../../events/session.events';
+import { homePageEvents } from '../events/page.events';
+import { apiEvents } from '../events/api.events';
+import { sessionEvents } from '../events/session.events';
 
 export const expiredInSeconds = 10;
 
@@ -49,9 +49,9 @@ export class SessionEffects {
         apiEvents.loginSuccess,
         homePageEvents.logout
       ),
-        // switchMap can reset the timer if new event comes in
+      // switchMap can reset the timer if new event comes in
       switchMap((event) => {
-        // if it is logout, stop emitting any value to avoid 
+        // if it is logout, stop emitting any value to avoid
         // emitting unnecessary session expired event
         if (event.type === homePageEvents.logout.type) {
           return EMPTY;

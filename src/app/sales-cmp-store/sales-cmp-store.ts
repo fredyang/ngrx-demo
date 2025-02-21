@@ -14,7 +14,7 @@ import {
   timer,
 } from 'rxjs';
 import { ApiService } from '../sales-share/api.service';
-import { expiredInSeconds } from '../sales-store/handlers/effects/session.effects';
+import { expiredInSeconds } from '../sales-store/ngrx/handlers/session.effect.handler';
 
 @Injectable({
   providedIn: 'root',

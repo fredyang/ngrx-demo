@@ -1,8 +1,8 @@
 import { createFeature, createReducer, on } from '@ngrx/store';
 import { SalesState } from '../../../sales-share/model';
-import { apiEvents } from '../../events/api.events';
-import { homePageEvents } from '../../events/page.events';
-import { sessionEvents } from '../../events/session.events';
+import { apiEvents } from '../events/api.events';
+import { homePageEvents } from '../events/page.events';
+import { sessionEvents } from '../events/session.events';
 
 // to fix an error
 // TypeError: Unexpected type 'undefined' in select operator,

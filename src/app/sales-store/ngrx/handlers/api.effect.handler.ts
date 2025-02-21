@@ -1,21 +1,16 @@
 import { Injectable } from '@angular/core';
-import { Actions, concatLatestFrom, createEffect, ofType } from '@ngrx/effects';
-import { concatMap, delay, filter, map, switchMap, tap } from 'rxjs';
+import { Actions, createEffect, ofType } from '@ngrx/effects';
+import { concatMap, map } from 'rxjs';
 import { ApiService } from '../../../sales-share/api.service';
-import { apiEvents } from '../../events/api.events';
-import { homePageEvents } from '../../events/page.events';
+import { apiEvents } from '../events/api.events';
+import { homePageEvents } from '../events/page.events';
 import { Store } from '@ngrx/store';
-import { salesSelectors } from '../../viewData/sales.selector';
 
 @Injectable({
   providedIn: 'root',
 })
 export class ApiEffects {
-  constructor(
-    private events$: Actions,
-    private apiService: ApiService,
-    private store: Store
-  ) {}
+  constructor(private events$: Actions, private apiService: ApiService) {}
 
   login$ = createEffect(() =>
     this.events$.pipe(

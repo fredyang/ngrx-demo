@@ -1,8 +1,8 @@
 import { EffectsModule } from '@ngrx/effects';
 import { StoreModule } from '@ngrx/store';
-import { salesSlot } from './handlers/data/reducer';
-import { SessionEffects } from './handlers/effects/session.effects';
-import { ApiEffects } from './handlers/effects/api.effects';
+import { ApiEffects } from './handlers/api.effect.handler';
+import { salesSlot } from './handlers/data.handler';
+import { SessionEffects } from './handlers/session.effect.handler';
 
 export const salesStoreModules = [
   StoreModule.forFeature(salesSlot),
