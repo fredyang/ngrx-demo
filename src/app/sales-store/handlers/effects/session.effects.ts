@@ -34,7 +34,7 @@ export class SessionEffects {
           // if user logout or session expired, stop tracking mouse event
           takeUntil(
             this.events$.pipe(
-              ofType(sessionEvents.expired, homePageEvents.wantToLogout)
+              ofType(sessionEvents.expired, homePageEvents.logout)
             )
           ),
           // mouse event continuously fired , we want to slow down the event
@@ -50,13 +50,13 @@ export class SessionEffects {
       ofType(
         sessionEvents.renewed,
         apiEvents.loginSuccess,
-        homePageEvents.wantToLogout
+        homePageEvents.logout
       ),
       // use switchMap so that when it is renewed, the timer will be reset
       switchMap((event) => {
         // if it is logout, stop emitting any value
         // so that the session will not be expired
-        if (event.type === homePageEvents.wantToLogout.type) {
+        if (event.type === homePageEvents.logout.type) {
           return EMPTY;
         } else {
           return timer(expiredInSeconds * 1000);

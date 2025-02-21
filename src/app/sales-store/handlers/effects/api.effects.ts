@@ -13,7 +13,7 @@ export class ApiEffects {
 
   login$ = createEffect(() =>
     this.events$.pipe(
-      ofType(homePageEvents.wantToLogin),
+      ofType(homePageEvents.login),
       concatMap(({ userName, password }) =>
         this.apiService
           .login(userName, password)

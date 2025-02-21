@@ -1,9 +1,9 @@
 import { props, createAction } from '@ngrx/store';
 
 export const homePageEvents = {
-  wantToLogin: createAction(
-    '[HomePage] wantToLogin',
+  login: createAction(
+    '[HomePage] login',
     props<{ userName: string; password: string }>()
   ),
-  wantToLogout: createAction('[HomePage] wantToLogout'),
+  logout: createAction('[HomePage] logout'),
 };

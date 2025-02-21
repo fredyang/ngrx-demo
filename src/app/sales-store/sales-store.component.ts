@@ -70,11 +70,11 @@ export class SalesStoreComponent {
 
   login() {
     this.store.dispatch(
-      homePageEvents.wantToLogin({ userName: 'johndoe', password: '1234' })
+      homePageEvents.login({ userName: 'johndoe', password: '1234' })
     );
   }
 
   logout() {
-    this.store.dispatch(homePageEvents.wantToLogout());
+    this.store.dispatch(homePageEvents.logout());
   }
 }
