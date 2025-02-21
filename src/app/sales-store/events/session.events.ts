@@ -1,9 +1,6 @@
-import { createActionGroup, emptyProps } from '@ngrx/store';
+import { createAction } from '@ngrx/store';
 
-export const sessionEvents = createActionGroup({
-  source: 'Session',
-  events: {
-    timeout: emptyProps(),
-    renewed: emptyProps(),
-  },
-});
+export const sessionEvents = {
+  expired: createAction('[session] expired'),
+  renewed: createAction('[session] renewed'),
+};

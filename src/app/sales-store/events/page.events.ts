@@ -1,11 +1,9 @@
-import { createActionGroup, props, emptyProps } from '@ngrx/store';
+import { props, createAction } from '@ngrx/store';
 
-export const homePageEvents = createActionGroup({
-  source: 'HomePage',
-  events: {
-    'want to login': props<{ userName: string; password: string }>(),
-    'want to logout': emptyProps(),
-  },
-});
-
-// homePageEvents.wantToLogin({ userName: 'user', password: 'pass' });
+export const homePageEvents = {
+  wantToLogin: createAction(
+    '[HomePage] wantToLogin',
+    props<{ userName: string; password: string }>()
+  ),
+  wantToLogout: createAction('[HomePage] wantToLogout'),
+};

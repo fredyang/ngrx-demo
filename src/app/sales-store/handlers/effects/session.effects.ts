@@ -31,29 +31,38 @@ export class SessionEffects {
       // switchMap can cancel if user logout manually
       switchMap(() => {
         return fromEvent(document, 'mousemove').pipe(
-          // mouse event continuously fired , we want to slow down the event
-          debounceTime(300),
-
-          // tap(() => {
-          //   // normally an effect should only return one action
-          //   // this is hack
-          //   this.store.dispatch(sessionEvents.renewed());
-          // }),
-          // start tracking at the first time without waiting mouse move
-          startWith(true),
-
-          // switchMap accept and iput value, convert the input to
-          // a new observable, then subscribe the observable, and output its value
-          // emitted
-          switchMap(() => timer(expiredInSeconds * 1000)),
+          // if user logout or session expired, stop tracking mouse event
           takeUntil(
             this.events$.pipe(
-              ofType(sessionEvents.timeout, homePageEvents.wantToLogout)
+              ofType(sessionEvents.expired, homePageEvents.wantToLogout)
             )
-          )
+          ),
+          // mouse event continuously fired , we want to slow down the event
+          debounceTime(1000)
         );
       }),
-      map(() => sessionEvents.timeout())
+      map(() => sessionEvents.renewed())
+    )
+  );
+
+  setSessionExpired$ = createEffect(() =>
+    this.events$.pipe(
+      ofType(
+        sessionEvents.renewed,
+        apiEvents.loginSuccess,
+        homePageEvents.wantToLogout
+      ),
+      // use switchMap so that when it is renewed, the timer will be reset
+      switchMap((event) => {
+        // if it is logout, stop emitting any value
+        // so that the session will not be expired
+        if (event.type === homePageEvents.wantToLogout.type) {
+          return EMPTY;
+        } else {
+          return timer(expiredInSeconds * 1000);
+        }
+      }),
+      map(() => sessionEvents.expired())
     )
   );
 }
