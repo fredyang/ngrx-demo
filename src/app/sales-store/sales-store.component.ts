@@ -17,8 +17,8 @@ import { expiredInSeconds } from './ngrx/handlers/session.effect.handler';
       <ng-container *ngIf="sales.user">
         <h2>Hello, {{ sales.user.firstName }} {{ sales.user.lastName }}</h2>
         <p>
-          Session is valid from
-          <strong>{{ sales.sessionRenewAt | date : 'h:mm:ss a' }}</strong
+          The current session was renewed at
+          <strong>{{ sales.refreshSessionAt | date : 'h:mm:ss a' }}</strong
           >. It will be auto logged out in
           <strong>{{ remainingTime$ | async }}</strong> seconds. Move your mouse
           to renew your session.
@@ -56,11 +56,11 @@ export class SalesStoreComponent {
 
   remainingTime$ = interval(300).pipe(
     concatLatestFrom(() =>
-      this.store.select(salesSelectors.selectSessionRenewAt)
+      this.store.select(salesSelectors.selectRefreshSessionAt)
     ),
-    map(([, sessionRenewAt]) =>
+    map(([, refreshSessionAt]) =>
       Math.ceil(
-        (sessionRenewAt!.getTime() +
+        (refreshSessionAt!.getTime() +
           expiredInSeconds * 1000 -
           new Date().getTime()) /
           1000

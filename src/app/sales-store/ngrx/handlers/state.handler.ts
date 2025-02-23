@@ -11,7 +11,7 @@ import { sessionEvents } from '../events/session.events';
 
 const initialState = {
   user: null,
-  sessionRenewAt: null,
+  refreshSessionAt: null,
   orders: null,
   preferences: null,
 } as SalesState;
@@ -30,7 +30,7 @@ export const salesSlot = createFeature({
     //one reducer respond to two actions
     on(apiEvents.loginSuccess, sessionEvents.renewed, (state) => ({
       ...state,
-      sessionRenewAt: new Date(),
+      refreshSessionAt: new Date(),
     })),
     //
     on(apiEvents.orderLoaded, function setOrders(state, { orders }) {
@@ -38,13 +38,14 @@ export const salesSlot = createFeature({
     }),
     on(
       apiEvents.preferencesLoaded,
-      function setPreferences(state, { preferences }) {
+      // update preferences
+      (state, { preferences }) => {
         return { ...state, preferences };
       }
     ),
     //one reducer respond to two actions
-    on(homePageEvents.logout, sessionEvents.expired, function clearSalesData() {
-      return {} as SalesState;
+    on(homePageEvents.logout, sessionEvents.expired, () => {
+      return { ...initialState };
     })
   ),
 });

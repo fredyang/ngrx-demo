@@ -8,6 +8,6 @@ export interface SalesState {
   user: UserInfo | null;
   orders: string[] | null;
   preferences: string[] | null;
-  sessionRenewAt: Date | null;
+  refreshSessionAt: Date | null;
   loginAt: Date | null;
 }

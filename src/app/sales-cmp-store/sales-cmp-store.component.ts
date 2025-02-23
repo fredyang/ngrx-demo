@@ -16,7 +16,7 @@ const expiredInSeconds = 10;
         <h2>Hello, {{ sales.user.firstName }} {{ sales.user.lastName }}</h2>
         <p>
           Session is valid from
-          <strong>{{ sales.sessionRenewAt | date : 'h:mm:ss a' }}</strong
+          <strong>{{ sales.refreshSessionAt | date : 'h:mm:ss a' }}</strong
           >. It will be auto logged out in
           <strong>{{ remainingTime$ | async }}</strong> seconds. Move your mouse
           to renew your session.
@@ -54,7 +54,7 @@ export class SalesCmpStoreComponent {
 
   remainingTime$ = interval(300).pipe(
     concatLatestFrom(() =>
-      this.salesService.select((state) => state.sessionRenewAt)
+      this.salesService.select((state) => state.refreshSessionAt)
     ),
     map(([, sessionValidSince]) =>
       Math.ceil(

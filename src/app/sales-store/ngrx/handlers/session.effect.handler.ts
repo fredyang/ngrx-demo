@@ -21,7 +21,7 @@ export const expiredInSeconds = 10;
   providedIn: 'root',
 })
 export class SessionEffects {
-  constructor(private events$: Events, private store: Store) {}
+  constructor(private events$: Events) {}
 
   trackSession$ = createEffect(() =>
     this.events$.pipe(
@@ -35,7 +35,7 @@ export class SessionEffects {
             )
           ),
           // mouse event continuously fired , we want to slow down the event
-          debounceTime(1000)
+          debounceTime(100)
         );
       }),
       map(() => sessionEvents.renewed())
@@ -51,8 +51,9 @@ export class SessionEffects {
       ),
       // switchMap can reset the timer if new event comes in
       switchMap((event) => {
-        // if it is logout, stop emitting any value to avoid
-        // emitting unnecessary session expired event
+        // if it is logout, I want to emit an empty observable
+        // which will not emit any value, but more importantly
+        // because of switchMap, it will cancel the previous timer
         if (event.type === homePageEvents.logout.type) {
           return EMPTY;
         } else {

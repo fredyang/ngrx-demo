@@ -85,6 +85,6 @@ export class SalesCmpStore extends ComponentStore<SalesState> {
   });
 
   renewSession = this.updater((state) => {
-    return { ...state, sessionRenewAt: new Date() };
+    return { ...state, refreshSessionAt: new Date() };
   });
 }
