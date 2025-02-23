@@ -1,29 +1,37 @@
 import { ChangeDetectionStrategy, Component } from '@angular/core';
 import { Store } from '@ngrx/store';
-import { salesSelectors } from './ngrx/viewData';
+import { salesViewData } from './ngrx/viewData';
 import { interval, map } from 'rxjs';
 import { concatLatestFrom } from '@ngrx/effects';
 import { homePageEvents } from './ngrx/events/page.events';
-import { expiredInSeconds } from './ngrx/handlers/session.effect.handler';
+import { expiredInSeconds } from './ngrx/effect.handlers/session.effect.handler';
 
 @Component({
   selector: 'app-sales-store',
   template: `
     <div *ngIf="sales$ | async as sales">
-      <p>
-        <button *ngIf="!sales.user" (click)="login()">Login</button>
-        <button *ngIf="sales.user" (click)="logout()">Logout</button>
-      </p>
-      <ng-container *ngIf="sales.user">
-        <h2>Hello, {{ sales.user.firstName }} {{ sales.user.lastName }}</h2>
+      <div class="demo-container">
         <p>
-          The current session was renewed at
-          <strong>{{ sales.refreshSessionAt | date : 'h:mm:ss a' }}</strong
-          >. It will be auto logged out in
-          <strong>{{ remainingTime$ | async }}</strong> seconds. Move your mouse
-          to renew your session.
+          <button *ngIf="!sales.user" (click)="login()">Login</button>
+          <button *ngIf="sales.user" (click)="logout()">Logout</button>
         </p>
-        <div class="flex">
+      </div>
+
+      <ng-container *ngIf="sales.user">
+        <div class="demo-container">
+          <div>
+            <h2>Hello, {{ sales.user.firstName }} {{ sales.user.lastName }}</h2>
+            The current session was refreshed at
+            <strong>{{ sales.refreshSessionAt | date : 'h:mm:ss a' }}</strong
+            >. After <strong>{{ remainingTime$ | async }}</strong> seconds, it
+            will be logout.
+            <p>
+              You can move your mouse to keep the session contintue before
+              logout.
+            </p>
+          </div>
+        </div>
+        <div class="demo-container">
           <div>
             <h2>You orders:</h2>
             <p *ngFor="let order of sales.orders">
@@ -52,11 +60,11 @@ import { expiredInSeconds } from './ngrx/handlers/session.effect.handler';
 export class SalesStoreComponent {
   constructor(private store: Store) {}
 
-  sales$ = this.store.select(salesSelectors.selectSalesState);
+  sales$ = this.store.select(salesViewData.selectSalesState);
 
   remainingTime$ = interval(300).pipe(
     concatLatestFrom(() =>
-      this.store.select(salesSelectors.selectRefreshSessionAt)
+      this.store.select(salesViewData.selectRefreshSessionAt)
     ),
     map(([, refreshSessionAt]) =>
       Math.ceil(

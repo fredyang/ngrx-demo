@@ -23,26 +23,6 @@ export class ApiEffects {
     )
   );
 
-  // another way to implement getUserOrders
-  // getUserOrders$ = createEffect(() =>
-  //   this.events$.pipe(
-  //     ofType(homePageEvents.login),
-  //     delay(10),
-  //     concatLatestFrom(() =>
-  //       this.store
-  //         .select(salesSelectors.selectUser)
-  //         .pipe(map((user) => user?.userName))
-  //     ),
-  //     map(([_, userName]) => userName),
-  //     filter((userName) => !!userName),
-  //     switchMap((userName) =>
-  //       this.apiService
-  //         .getUserOrders(userName!)
-  //         .pipe(map((orders) => apiEvents.orderLoaded({ orders })))
-  //     )
-  //   )
-  // );
-
   getUserOrders$ = createEffect(() =>
     this.events$.pipe(
       ofType(apiEvents.loginSuccess),

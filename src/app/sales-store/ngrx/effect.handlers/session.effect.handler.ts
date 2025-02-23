@@ -49,11 +49,10 @@ export class SessionEffects {
         apiEvents.loginSuccess,
         homePageEvents.logout
       ),
-      // switchMap can reset the timer if new event comes in
       switchMap((event) => {
-        // if it is logout, I want to emit an empty observable
-        // which will not emit any value, but more importantly
-        // because of switchMap, it will cancel the previous timer
+        // switchMap can finished the previous timer if new event comes in
+        // If it is logout, we don't want to create a new timer
+        // so we return EMPTY, which will not emit any value
         if (event.type === homePageEvents.logout.type) {
           return EMPTY;
         } else {

@@ -9,41 +9,34 @@ import { sessionEvents } from '../events/session.events';
 // expected 'string' or 'function'
 // with the following
 
-const initialState = {
+const initialState: SalesState = {
   user: null,
   refreshSessionAt: null,
   orders: null,
   preferences: null,
-} as SalesState;
+};
 
 // slot(feature) is bound to recucers
 export const salesSlot = createFeature({
-  name: 'sales',
+  name: 'sales', // slot path
   reducer: createReducer(
     initialState,
-    //one action trigger two reducers
-    //
-    on(
-      apiEvents.loginSuccess,
-      /* update user */ (state, user) => ({ ...state, user })
-    ),
-    //one reducer respond to two actions
+    // update user
+    on(apiEvents.loginSuccess, (state, user) => ({ ...state, user })),
+    // update refreshSessionAt
     on(apiEvents.loginSuccess, sessionEvents.renewed, (state) => ({
       ...state,
       refreshSessionAt: new Date(),
     })),
-    //
-    on(apiEvents.orderLoaded, function setOrders(state, { orders }) {
+    // update order
+    on(apiEvents.orderLoaded, (state, { orders }) => {
       return { ...state, orders };
     }),
-    on(
-      apiEvents.preferencesLoaded,
-      // update preferences
-      (state, { preferences }) => {
-        return { ...state, preferences };
-      }
-    ),
-    //one reducer respond to two actions
+    // update preferences
+    on(apiEvents.preferencesLoaded, (state, { preferences }) => {
+      return { ...state, preferences };
+    }),
+    // reset everything
     on(homePageEvents.logout, sessionEvents.expired, () => {
       return { ...initialState };
     })

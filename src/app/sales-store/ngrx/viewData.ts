@@ -1,6 +1,6 @@
-import { salesSlot } from './handlers/state.handler';
+import { salesSlot } from './state.handlers/state.handler';
 
-export const salesSelectors = salesSlot as Omit<
+export const salesViewData = salesSlot as Omit<
   typeof salesSlot,
   'name' | 'reducer'
 >;
