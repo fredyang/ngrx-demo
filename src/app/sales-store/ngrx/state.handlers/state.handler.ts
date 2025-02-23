@@ -17,7 +17,7 @@ const initialState: SalesState = {
 };
 
 // slot(feature) is bound to recucers
-export const salesSlot = createFeature({
+export const salesSlice = createFeature({
   name: 'sales', // slot path
   reducer: createReducer(
     initialState,
