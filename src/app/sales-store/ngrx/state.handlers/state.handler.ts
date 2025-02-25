@@ -24,7 +24,7 @@ export const salesSlice = createFeature({
     // update user
     on(apiEvents.loginSuccess, (state, user) => ({ ...state, user })),
     // update refreshSessionAt
-    on(apiEvents.loginSuccess, sessionEvents.renewed, (state) => ({
+    on(apiEvents.loginSuccess, sessionEvents.refreshed, (state) => ({
       ...state,
       refreshSessionAt: new Date(),
     })),

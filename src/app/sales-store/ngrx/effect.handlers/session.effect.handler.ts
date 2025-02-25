@@ -10,16 +10,13 @@ import {
   takeUntil,
   timer,
 } from 'rxjs';
-import { Store } from '@ngrx/store';
 import { homePageEvents } from '../events/page.events';
 import { apiEvents } from '../events/api.events';
 import { sessionEvents } from '../events/session.events';
 
 export const expiredInSeconds = 10;
 
-@Injectable({
-  providedIn: 'root',
-})
+@Injectable()
 export class SessionEffects {
   constructor(private events$: Events) {}
 
@@ -38,14 +35,14 @@ export class SessionEffects {
           debounceTime(100)
         );
       }),
-      map(() => sessionEvents.renewed())
+      map(() => sessionEvents.refreshed())
     )
   );
 
   setSessionExpired$ = createEffect(() =>
     this.events$.pipe(
       ofType(
-        sessionEvents.renewed,
+        sessionEvents.refreshed,
         apiEvents.loginSuccess,
         homePageEvents.logout
       ),

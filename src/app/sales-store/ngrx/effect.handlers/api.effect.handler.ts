@@ -4,11 +4,8 @@ import { concatMap, map } from 'rxjs';
 import { ApiService } from '../../../sales-share/api.service';
 import { apiEvents } from '../events/api.events';
 import { homePageEvents } from '../events/page.events';
-import { Store } from '@ngrx/store';
 
-@Injectable({
-  providedIn: 'root',
-})
+@Injectable()
 export class ApiEffects {
   constructor(private events$: Actions, private apiService: ApiService) {}
 

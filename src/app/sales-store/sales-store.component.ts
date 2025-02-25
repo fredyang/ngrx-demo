@@ -23,8 +23,8 @@ import { expiredInSeconds } from './ngrx/effect.handlers/session.effect.handler'
             <h2>Hello, {{ sales.user.firstName }} {{ sales.user.lastName }}</h2>
             The current session was refreshed at
             <strong>{{ sales.refreshSessionAt | date : 'h:mm:ss a' }}</strong
-            >. After <strong>{{ remainingTime$ | async }}</strong> seconds, it
-            will be logout.
+            >. It will be logout after
+            <strong>{{ remainingTime$ | async }}</strong> seconds,
             <p>
               You can move your mouse to keep the session contintue before
               logout.
